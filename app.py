@@ -69,7 +69,7 @@ def delete_item(barcode):
     if not item:
         return jsonify({"error":"Product not found"}),404
     inventory=[item for item in inventory if item["barcode"]!=barcode]
-    return jsonify({"message":f"Product {barcode} removed successfully"}),204
+    return jsonify({"message":f"Product {barcode} was removed successfully"}),204
 
     
 if __name__ == "__main__":
