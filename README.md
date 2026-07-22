@@ -67,8 +67,6 @@ Base URL: http://127.0.0.1:5000
     ```json
     {
       "barcode": "737628064502",
-      "name": "Optional name",
-      "category": "Optional category",
       "quantity": 10,
       "price": 19.99
     }

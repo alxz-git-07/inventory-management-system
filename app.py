@@ -6,7 +6,7 @@ app=Flask(__name__)
 inventory=[]
 
 def fetch_product(barcode):
-    url=f"https://openfoodfacts.net{barcode}.json"
+    url=f"https://world.openfoodfacts.org/api/v0/product/{barcode}.json"
     try:
         headers={"User-Agent":"RetailInventorySystem"}
         response=requests.get(url,headers=headers, timeout=5)
@@ -19,8 +19,8 @@ def fetch_product(barcode):
                 category_list=[c.strip() for c in raw_categories.split(",") if c]
                 main_category=(category_list[0]if category_list else "General")
                 return{"name":product.get("product_name","Unknown Product"),"category":main_category}
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Network or parsing error occurred: {e}")
     return None
 
 @app.route("/inventory",methods=["POST"])
@@ -74,3 +74,11 @@ def delete_item(barcode):
     
 if __name__ == "__main__":
     app.run(debug=True)
+
+# if __name__ == "__main__":
+#     # A valid barcode for Nutella (you can use any known barcode)
+#     test_barcode = "3017620422003" 
+    
+#     print(f"Testing fetch_product with barcode: {test_barcode}")
+#     result = fetch_product(test_barcode)
+#     print("Function Output:", result)
